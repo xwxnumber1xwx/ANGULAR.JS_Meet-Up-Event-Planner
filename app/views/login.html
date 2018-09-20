@@ -1,15 +1,13 @@
-<section id="login" ng-if="!login.logged">
+<div ng-init="login.getCurrentUser()"></div>
+<section id="login">
     <form>
         <label>Email </label><input type="text" name="email" ng-model="login.email" required><br>
         <label>Password </label><input type="password" name="password" ng-model="login.password" required><br>
-        <input type="submit" value="Sign In" ng-click="login.logIn(); login.logged = true;">
+        <input type="submit" value="Sign In" ng-click="login.logIn()">
     </form>
 </section>
-<section id="logged" ng-if="login.logged">
-    <h2 class="center">Welcome {{login.displayName}}</h2>
-    <p>your information:<br>
-        {{login.displayName}}<br>
-        {{login.email}}
-    </p>
-    <button ng-click="login.logOut(); login.logged = false;">log out</button>
+<section id="logged" class="disabled">
+    <h2 class="center">Welcome</h2>
+    <p id="username"></p>
+    <button ng-click="login.logOut()">log out</button>
 </section>

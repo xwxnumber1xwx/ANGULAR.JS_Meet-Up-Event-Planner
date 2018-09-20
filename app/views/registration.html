@@ -1,7 +1,7 @@
 <section>
     <form>
         <label>Name </label><input type="text" name="name" ng-model="reg.name" required><br>
-        <label>Password </label><input type="password" name="password" ng-model="reg.password" required><br>
+        <label>Password </label><input id="password" type="password" name="password" ng-model="reg.password" required><br>
         <label>email </label><input type="email" name="email" ng-model="reg.email" required><br>
         <input type="submit" value="Sign Up" ng-click="reg.signUp()">
     </form>

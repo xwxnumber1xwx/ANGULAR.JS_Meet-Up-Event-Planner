@@ -83,5 +83,5 @@ body {
 }
 
 .disabled {
-  display: none;
+  display: none!important;
 }
