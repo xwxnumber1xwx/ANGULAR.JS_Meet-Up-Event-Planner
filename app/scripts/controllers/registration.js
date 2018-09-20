@@ -13,41 +13,41 @@ angular.module('eventPlannerApp')
     this.email = '';
     this.password = '';
     this.user;
+    this.firstPasswordInput = $('#password-reg')[0];
 
     // password validation
     this.validation = () => {
-      this.firstPasswordInput = $('#password-reg')[0];
-      let errorMsg = [];
+      this.errorMsg = [];
       if (this.firstPasswordInput.value.length < 4) {
-        errorMsg.push('Password too small');
+        this.errorMsg.push('Password too small');
       } else if (this.firstPasswordInput.value.length > 30) {
-        errorMsg.push('Password too big');
+        this.errorMsg.push('Password too big');
       }
       if (!this.firstPasswordInput.value.match(/[0-9]/g)) {
-        errorMsg.push('Password need almost number');
+        this.errorMsg.push('Password need almost number');
       }
-      if (!this.firstPasswordInput.value.match(/[\!\@\#\$\%\^\&\*]/g)) {
-        errorMsg.push('Password need almost one of those symbols: !, @, #, $, %, ^, &, *');
+      if (!this.firstPasswordInput.value.match(/[\.\!\@\#\$\%\^\&\*]/g)) {
+        this.errorMsg.push('Password need almost one of those symbols: ., !, @, #, $, %, ^, &, *');
       }
       if (!this.firstPasswordInput.value.match(/[a-z]/g)) {
-        errorMsg.push('Password need almost one lowercase character');
+        this.errorMsg.push('Password need almost one lowercase character');
       }
       if (!this.firstPasswordInput.value.match(/[A-Z]/g)) {
-        errorMsg.push('Password need almost one uppercase character');
+        this.errorMsg.push('Password need almost one uppercase character');
       }
-      if (this.firstPasswordInput.value.match(/[^A-z0-9\!\@\#\$\%\^\&\*]/g)) {
-        errorMsg.push('Password has invalid character');
+      if (this.firstPasswordInput.value.match(/[^A-z0-9\.\!\@\#\$\%\^\&\*]/g)) {
+        this.errorMsg.push('Password has invalid character');
       }
-      errorMsg = errorMsg.join('\n');
-      this.firstPasswordInput.setCustomValidity(errorMsg);
-      if (errorMsg.length == 0) {
+      //TODO: Error inifite loop
+      if (this.errorMsg.length == 0) {
         this.signUp();
+      } else {
+        this.firstPasswordInput.setCustomValidity(this.errorMsg.join('\n'));
       }
     };
 
     //register new user
     this.signUp = () => {
-      this.validation()
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
         .then((response) => {
           console.log(response.user);
