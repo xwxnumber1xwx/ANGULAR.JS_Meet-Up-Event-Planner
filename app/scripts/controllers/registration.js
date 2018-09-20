@@ -14,7 +14,40 @@ angular.module('eventPlannerApp')
     this.password = '';
     this.user;
 
+    // password validation
+    this.validation = () => {
+      this.firstPasswordInput = $('#password-reg')[0];
+      let errorMsg = [];
+      if (this.firstPasswordInput.value.length < 4) {
+        errorMsg.push('Password too small');
+      } else if (this.firstPasswordInput.value.length > 30) {
+        errorMsg.push('Password too big');
+      }
+      if (!this.firstPasswordInput.value.match(/[0-9]/g)) {
+        errorMsg.push('Password need almost number');
+      }
+      if (!this.firstPasswordInput.value.match(/[\!\@\#\$\%\^\&\*]/g)) {
+        errorMsg.push('Password need almost one of those symbols: !, @, #, $, %, ^, &, *');
+      }
+      if (!this.firstPasswordInput.value.match(/[a-z]/g)) {
+        errorMsg.push('Password need almost one lowercase character');
+      }
+      if (!this.firstPasswordInput.value.match(/[A-Z]/g)) {
+        errorMsg.push('Password need almost one uppercase character');
+      }
+      if (this.firstPasswordInput.value.match(/[^A-z0-9\!\@\#\$\%\^\&\*]/g)) {
+        errorMsg.push('Password has invalid character');
+      }
+      errorMsg = errorMsg.join('\n');
+      this.firstPasswordInput.setCustomValidity(errorMsg);
+      if (errorMsg.length == 0) {
+        this.signUp();
+      }
+    };
+
+    //register new user
     this.signUp = () => {
+      this.validation()
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
         .then((response) => {
           console.log(response.user);
@@ -31,16 +64,12 @@ angular.module('eventPlannerApp')
         });
     }
 
-    //update user Information
+    //update/add user Information
     this.updateProfile = (user, name) => {
       user.updateProfile({
         displayName: name,
-      }).then(function () {
-        // Update successful.
-        alert('Update successful');
       }).catch(function (error) {
         // An error happened.
-        alert('An error happened.');
         console.log(error);
       });
     }

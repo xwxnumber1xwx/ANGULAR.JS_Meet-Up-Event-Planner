@@ -1,8 +1,8 @@
 <section>
     <form>
-        <label>Name </label><input type="text" name="name" ng-model="reg.name" required><br>
-        <label>Password </label><input id="password" type="password" name="password" ng-model="reg.password" required><br>
-        <label>email </label><input type="email" name="email" ng-model="reg.email" required><br>
-        <input type="submit" value="Sign Up" ng-click="reg.signUp()">
+        <label>Name </label><input type="text" name="name" ng-model="reg.name" maxlength="30" minlength="4" autofocus required><br>
+        <label>Password </label><input id="password-reg" type="password" name="password" ng-model="reg.password" autocomplete="off" required><br>
+        <label>email </label><input type="email" name="email" ng-model="reg.email" minlength="4" required><br>
+        <input type="submit" value="Sign Up" ng-click="reg.validation()">
     </form>
 </section>
