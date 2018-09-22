@@ -43,7 +43,7 @@
           <ul class="nav navbar-nav">
             <li><a ui-sref="login" id="signin">Sign-In</a></li>
             <li><a ui-sref="registration" id="signup">Sign-Up</a></li>
-            <li id="events" class="disabled"><a ng-href="#/">Events</a></li>
+            <li id="events" class="disabled"><a ui-sref="events">Events</a></li>
           </ul>
         </div>
       </div>
@@ -74,6 +74,8 @@
   <script src="scripts/controllers/main.js"></script>
   <script src="scripts/controllers/login.js"></script>
   <script src="scripts/controllers/registration.js"></script>
+  <script src="scripts/controllers/events.js"></script>
+  <script src="scripts/services/firebaseapi.js"></script>
   <!-- endbuild -->
   
 <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>

@@ -8,7 +8,7 @@
  * Controller of the eventPlannerApp
  */
 angular.module('eventPlannerApp')
-  .controller('LoginCtrl', function () {
+  .controller('LoginCtrl', ['firebaseApi', function (firebaseApi) {
     this.email = '';
     this.password = '';
     this.user = {};
@@ -16,35 +16,27 @@ angular.module('eventPlannerApp')
 
     //check if user il logged
     this.getCurrentUser = () => {
-      let user = firebase.auth().currentUser;
-        if (user) {
-          console.log('User is already signed in.')
-          // User is signed in.
-          this.getUserInfo(user);
-          this.loggedY();
-        }
-      };
+      let user = firebaseApi.getCurrentUser();
+      if (user) {
+        console.log('User is already signed in.')
+        // User is signed in.
+        this.getUserInfo(user);
+        this.loggedY();
+      }
+    };
 
     //logIn
     this.logIn = () => {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      firebaseApi.login(this.email, this.password)
         .then((response) => {
-          this.getUserInfo(response.user);
-          this.loggedY();
-        })
-        .catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // [START_EXCLUDE]
-          if (errorCode === 'auth/wrong-password') {
-            alert('Wrong password.');
-          } else {
-            alert(errorMessage);
+          if (response) {
+            this.getUserInfo(response.user);
+            this.loggedY()
           }
-          console.log(error);
-        });
-    };
+        })
+    }
+
+
     //get and display user info
     this.getUserInfo = (user) => {
       this.logged = true
@@ -57,7 +49,7 @@ angular.module('eventPlannerApp')
 
     //log out
     this.logOut = () => {
-      firebase.auth().signOut()
+      firebaseApi.logOut()
         .then(() => {
           this.email = '';
           this.password = '';
@@ -84,4 +76,4 @@ angular.module('eventPlannerApp')
       $('#signup').removeClass('disabled');
     };
 
-  });
+  }]);

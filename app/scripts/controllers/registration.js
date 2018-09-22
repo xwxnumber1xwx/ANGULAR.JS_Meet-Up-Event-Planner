@@ -38,7 +38,6 @@ angular.module('eventPlannerApp')
       if (this.firstPasswordInput.value.match(/[^A-z0-9\.\!\@\#\$\%\^\&\*]/g)) {
         this.errorMsg.push('Password has invalid character');
       }
-      //TODO: Error inifite loop
       if (this.errorMsg.length == 0) {
         this.signUp();
       } else {

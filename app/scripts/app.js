@@ -28,4 +28,9 @@ angular
       templateUrl: 'views/registration.html',
       controller: 'RegistrationCtrl as reg'
     })
+    .state('events', {
+      url: '/events',
+      templateUrl: 'views/events.html',
+      controller: 'EventsCtrl as events'
+    })
   }]);
