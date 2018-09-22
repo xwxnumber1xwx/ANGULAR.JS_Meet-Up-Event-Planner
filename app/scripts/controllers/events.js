@@ -9,13 +9,25 @@
  */
 angular.module('eventPlannerApp')
   .controller('EventsCtrl', ['firebaseApi', function (firebaseApi) {
-    this.allEvents;
+    this.allEvents = [];
+    this.name;
+    this.location;
+    this.date;
 
-    this.init = () => {
-      firebaseApi.initDatabase();
+    this.addEvent = () => {
+      firebaseApi.initDatabase(this.name, this.location, this.date);
+      this.resetInput();
+    }
+
+    this.resetInput = () => {
+       this.name = '';
+      this.location = '';
+      this.date = '';
+      $('.input').val('');
     }
 
     this.getDatabase = () => {
       this.allEvents = firebaseApi.getDatabase();
     }
+
   }]);

@@ -1,2 +1,17 @@
-<button ng-click="events.init()">initialize Database</button>
+<h3>Create an event:</h3>
+<form>
+    <label>Event name: </label><input class="input" type="text" ng-model="events.name" placeholder="Event's name" required><br>
+    <label>Location: </label><input class="input" type="text" ng-model="events.location" placeholder="Location" name="location" required><br>
+    <label>Date: </label><input class="input" type="datetime-local" ng-model="events.date" required><br>
+    <p>{{events.date}}</p>
+    <button ng-click="events.addEvent()">add Event</button>
+</form>
 <button ng-model="events.allEvents" ng-click="events.getDatabase()">get Database</button>
+<ul ng-repeat="event in events.allEvents">
+    <li>
+        <p>Author: {{event.author}}</p>
+        <p>name: {{event.name}}</p>
+        <p>Location: {{event.location}}</p>
+        <p>date: {{event.date}}</p>
+    </li>
+</ul>

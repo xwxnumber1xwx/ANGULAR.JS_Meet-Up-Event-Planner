@@ -39,39 +39,30 @@ angular.module('eventPlannerApp')
     }
 
     //initialize Database
-    this.initDatabase = () => {
+    this.initDatabase = (name, location, date) => {
       let user = this.getCurrentUser();
       if (user) {
         this.database = firebase.database();
         console.log(this.database);
         console.log(user);
-        this.writeDatabase(user);
-      }
-    }
-
-    //write data on database
-    this.writeDatabase = (user) => {
-      // TODO: variable need to be passed on the method
-      let name = 'trip to italy';
-      let location = 'Rome';
-      let timestamp = 1577232000;
-
-      this.setEvent(user.uid, user.displayName, name, location, timestamp)
+        //write data on database
+        this.setEvent(user.uid, user.displayName, name, location, date)
         .then(console.log('database wrote successfully'))
         .catch((err) => {
           console.log('error database');
           console.log(err);
         })
+      }
     }
 
     //Write a new event
-    this.setEvent = (uid, author, name, location, timestamp) => {
+    this.setEvent = (uid, author, name, location, date) => {
       let event = {
         uid: uid,
         author: author,
         name: name,
         location: location,
-        timestamp: timestamp
+        date: date
       }
 
       // get a key for new post
@@ -86,11 +77,16 @@ angular.module('eventPlannerApp')
 
     //get events from database
     this.getDatabase = () => {
+      let eventsArray = [];
       var events = firebase.database().ref('/events');
-      events.on('value', (snapshot) => {
-        console.log('getDatabase');
-        console.log(snapshot.val());
-        return snapshot.val();
+      events.once('value', (snapshot) => {
+        snapshot.forEach((childSnapshot)=> {
+          //var childKey = childSnapshot.key;
+          var childData = childSnapshot.val();
+          eventsArray.push(childData);
+        });
       });
+      console.log(eventsArray);
+      return eventsArray;
     }
   });
