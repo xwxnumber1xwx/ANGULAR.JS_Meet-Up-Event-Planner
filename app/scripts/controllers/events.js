@@ -8,8 +8,8 @@
  * Controller of the eventPlannerApp
  */
 angular.module('eventPlannerApp')
-  .controller('EventsCtrl', ['firebaseApi', function (firebaseApi) {
-    this.allEvents = [];
+  .controller('EventsCtrl', ['$scope', 'firebaseApi', function ($scope, firebaseApi) {
+    this.allEvents;
     this.name;
     this.location;
     this.date;
@@ -20,7 +20,7 @@ angular.module('eventPlannerApp')
     }
 
     this.resetInput = () => {
-       this.name = '';
+      this.name = '';
       this.location = '';
       this.date = '';
       $('.input').val('');
@@ -28,6 +28,16 @@ angular.module('eventPlannerApp')
 
     this.getDatabase = () => {
       this.allEvents = firebaseApi.getDatabase();
+      console.log(this.allEvents);
+      /* .then(response => {
+        console.log(response);
+        this.allEvents = response;
+      }) */
     }
 
+    this.deleteEvent = (id) => {
+      console.log('deleting');
+      firebaseApi.deleteElement(id);
+      this.getDatabase();
+    }
   }]);
