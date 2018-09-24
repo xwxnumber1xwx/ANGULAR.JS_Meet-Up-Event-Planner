@@ -11,6 +11,8 @@ angular.module('eventPlannerApp')
   .service('firebaseApi', function () {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
+    const eventsRef = firebase.database().ref('/events');
+
     //logIn
     this.login = (username, password) => {
       return firebase.auth().signInWithEmailAndPassword(username, password)
@@ -38,15 +40,50 @@ angular.module('eventPlannerApp')
       return firebase.auth().signOut();
     }
 
+    /* //add listener if database change. Async function (return a Promise)
+    this.setAddListener = async () => {
+      const eventsArray = [];
+      await eventsRef.on('child_added', function (data) {
+        console.log('child_added')
+        console.log(data.val());
+        eventsArray.push(data.val());
+      });
+      return eventsArray;
+    }
+
+    this.setChangeListener = async () => {
+      let id = '';
+      await eventsRef.on('child_changed', function (data) {
+        console.log('child_changed')
+        console.log(data.val());
+        id = data.key;
+      });
+      return id;
+    }
+
+    this.setRemoveListener = async () => {
+      let id = [];
+      await eventsRef.on('child_removed', function (data) {
+        console.log('child_removed')
+        console.log(data.val());
+        console.log(data.key);
+        id.push(data.key);
+        console.log(id);
+      });
+      console.log('return');
+      console.log(id);
+      return id.pop();
+    } */
+
     //initialize Database
-    this.initDatabase = (name, location, date) => {
+    this.addElement = (name, location, date, time) => {
       let user = this.getCurrentUser();
       if (user) {
         this.database = firebase.database();
         console.log(this.database);
         console.log(user);
         //write data on database
-        this.setEvent(user.uid, user.displayName, name, location, date)
+        this.setEvent(user.uid, user.displayName, name, location, date, time)
           .then(console.log('database wrote successfully'))
           .catch((err) => {
             console.log('error database');
@@ -56,7 +93,7 @@ angular.module('eventPlannerApp')
     }
 
     //Write a new event
-    this.setEvent = (uid, author, name, location, date) => {
+    this.setEvent = (uid, author, name, location, date, time) => {
 
       // get a key for new post
       let newPostKey = firebase.database().ref().child('posts').push().key
@@ -67,6 +104,7 @@ angular.module('eventPlannerApp')
         name: name,
         location: location,
         date: date,
+        time: time,
         eventid: newPostKey
       }
 
@@ -82,8 +120,7 @@ angular.module('eventPlannerApp')
     //get events from database
     this.getDatabase = () => {
       let eventsArray = [];
-      var events = firebase.database().ref('/events');
-      events.once('value', (snapshot) => {
+      eventsRef.once('value', (snapshot) => {
         snapshot.forEach((childSnapshot) => {
           //var childKey = childSnapshot.key;
           var childData = childSnapshot.val();

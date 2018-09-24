@@ -4,21 +4,21 @@
         required><br>
     <label>Location: </label><input class="input" type="text" ng-model="events.location" placeholder="Location" name="location"
         required><br>
-    <label>Date: </label><input class="input" type="datetime-local" ng-model="events.date" required><br>
-    <p>{{events.date}}</p>
+    <label>Date: </label><input class="input" type="date" ng-model="events.date" required><br>
+    <label for="appt-time">Time: </label><input class="input" type="time" ng-model="events.time" name="appt-time" value="events.time"><br>
     <button ng-click="events.addEvent()">add Event</button>
 </form>
 
 <div>
     <button ng-model="events.allEvents" ng-click="events.getDatabase()">get Database</button>
     <ul ng-repeat="event in events.allEvents">
-        <h4>{{event.eventid}}</h4>
         <button ng-click="events.deleteEvent(event.eventid)">delete Event</button>
         <li>
             <p>Author: {{event.author}}</p>
             <p>name: {{event.name}}</p>
             <p>Location: {{event.location}}</p>
             <p>date: {{event.date}}</p>
+            <p>time: {{event.time}}</p>
         </li>
     </ul>
 </div>
