@@ -7,6 +7,90 @@
 
 body {
   padding: 0;
+  font-family: 'Acme', sans-serif;
+  font-size: 27px;
+}
+
+.navbar.navbar-default {
+  background: none;
+  border: none;
+}
+
+.header {
+  border: none!important;
+}
+
+.footer {
+  border: none!important;
+}
+
+.main-title {
+  color: black;
+  text-shadow: 1px 1px 8px #DB4141;
+  text-align: center;
+   position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.invert-color {
+  color: #DB4141;
+  text-shadow: 1px 1px 8px black;
+}
+
+.text-container {
+  opacity: 0.91;
+}
+
+.big-font {
+  font-size: 49px;
+}
+
+.navbar-default .navbar-brand {
+  color: black;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 10px #DB4141;
+  font-size: 20px;
+}
+
+.buttons-main {
+  color: inherit;
+  background: black;
+  padding: 8px 30px;
+  border-radius: 25px;
+}
+
+.navbar-toggle, .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  opacity: 0.91;
+  border: none!important;
+  background: black;
+}
+
+.icon-bar {
+  background-color: #DB4141!important;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  border: none;
+}
+
+.navbar-default .navbar-nav > li > a {
+  opacity: 0.91;
+  color: #DB4141;
+  text-align: center;
+  background: black;
+  margin: 4px 0px;
+  border-radius: 25px;
+}
+
+.bg{
+  height: 100vh;
+  background-image: url('/images/seth-reese-599260-unsplash-small.jpg');
+  background-size: cover;
+  background-repeat:no-repeat;
+  background-position:center;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
