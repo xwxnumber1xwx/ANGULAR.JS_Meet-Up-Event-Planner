@@ -43,7 +43,7 @@ angular.module('eventPlannerApp')
       this.user = user;
       this.displayName = user.displayName;
       this.email = user.email;
-      this.info = `<p><b>Your information:<br>Name:</b> ${this.displayName}<br><b>Email:</b> ${this.email}</p>`
+      this.info = `<p><b>Your information:</p><p>Name:</b><br>${this.displayName}<br><b>Email:</b><br>${this.email}<br></p>`
       $('#username').html(this.info);
     };
 

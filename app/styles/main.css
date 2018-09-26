@@ -1,3 +1,10 @@
+@import url(http://weloveiconfonts.com/api/?family=iconicstroke);
+
+/* iconicstroke */
+[class*="iconicstroke-"]:before {
+  font-family: 'IconicStroke', sans-serif;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -14,6 +21,7 @@ body {
 .navbar.navbar-default {
   background: none;
   border: none;
+  z-index: 100;
 }
 
 .header {
@@ -24,30 +32,48 @@ body {
   border: none!important;
 }
 
+.contain {
+height: 30%;
+}
+
+/*main page settings*/
 .main-title {
   color: black;
   text-shadow: 1px 1px 8px #DB4141;
   text-align: center;
-   position: absolute;
-  top: 50vh;
+  /* top: 50vh;
+  position: absolute;
   left: 50vw;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   width: 100%;
+  z-index: 1;
 }
 
+/* invert colors*/
 .invert-color {
-  color: #DB4141;
+  color: #DB4141 !important;
   text-shadow: 1px 1px 8px black;
 }
 
+/*flex buttons*/
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 350px;
+  margin: auto;
+}
+
+/*add opacity*/
 .text-container {
   opacity: 0.91;
 }
 
+/*big font*/
 .big-font {
   font-size: 49px;
 }
 
+/*navbar settings*/
 .navbar-default .navbar-brand {
   color: black;
   text-transform: uppercase;
@@ -55,11 +81,44 @@ body {
   font-size: 20px;
 }
 
+/* more buttons settings*/
 .buttons-main {
   color: inherit;
   background: black;
   padding: 8px 30px;
   border-radius: 25px;
+  max-width: 450px;
+  margin: 10px auto 0;
+}
+
+.button-center {
+  margin: auto;
+}
+
+/*input forms settings*/
+.input-text {
+  text-align: center;
+  font-size: 0.7em;
+  min-width: 260px;
+  height: 32px;
+}
+
+input, textarea {
+    background: none;
+    border: none;
+    color: #DB4141;
+}
+
+/*event container settings*/
+.event-container {
+  text-align: center;
+  background: black;
+  border-radius: 25px;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: #DB4141 !important;
+  -webkit-box-shadow: 0 0 0px 1000px black inset;
 }
 
 .navbar-toggle, .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
@@ -91,6 +150,22 @@ body {
   background-size: cover;
   background-repeat:no-repeat;
   background-position:center;
+}
+
+#logged {
+  text-align: center;
+}
+
+#username {
+  overflow: hidden;
+  font-size: 0.9em;
+}
+
+.button-add-rmv {
+  width: 60px;
+  height: 60px;
+  padding: 2px 0 0 15px;
+  font-size: 1.5em;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
