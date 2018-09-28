@@ -17,31 +17,34 @@ angular.module('eventPlannerApp')
 
     // password validation
     this.validation = () => {
-      this.errorMsg = [];
+      this.errorMsg = ['Password: '];
       if (this.firstPasswordInput.value.length < 4) {
-        this.errorMsg.push('Password too small');
+        this.errorMsg.push('too small,');
       } else if (this.firstPasswordInput.value.length > 30) {
-        this.errorMsg.push('Password too big');
+        this.errorMsg.push('too big,');
       }
       if (!this.firstPasswordInput.value.match(/[0-9]/g)) {
-        this.errorMsg.push('Password need almost number');
+        this.errorMsg.push('need almost number,');
       }
       if (!this.firstPasswordInput.value.match(/[\.\!\@\#\$\%\^\&\*]/g)) {
-        this.errorMsg.push('Password need almost one of those symbols: ., !, @, #, $, %, ^, &, *');
+        this.errorMsg.push('need almost one of those symbols: ., !, @, #, $, %, ^, &, *,');
       }
       if (!this.firstPasswordInput.value.match(/[a-z]/g)) {
-        this.errorMsg.push('Password need almost one lowercase character');
+        this.errorMsg.push('need almost one lowercase character,');
       }
       if (!this.firstPasswordInput.value.match(/[A-Z]/g)) {
-        this.errorMsg.push('Password need almost one uppercase character');
+        this.errorMsg.push('need almost one uppercase character,');
       }
       if (this.firstPasswordInput.value.match(/[^A-z0-9\.\!\@\#\$\%\^\&\*]/g)) {
-        this.errorMsg.push('Password has invalid character');
+        this.errorMsg.push('has invalid character,');
       }
-      if (this.errorMsg.length == 0) {
+      if (this.errorMsg.length < 2) {
         this.signUp();
       } else {
         this.firstPasswordInput.setCustomValidity(this.errorMsg.join('\n'));
+        setTimeout(() => {
+          this.firstPasswordInput.setCustomValidity('');
+        }, 3000);
       }
     };
 
@@ -52,7 +55,7 @@ angular.module('eventPlannerApp')
           console.log(response.user);
           this.user = response.user;
           this.updateProfile(this.user, this.name);
-          alert('user Successfully Registered')
+          document.location.href = `http://${document.location.host}/#!/login`
         })
         .catch(function (error) {
           // Handle Errors here.
@@ -60,6 +63,7 @@ angular.module('eventPlannerApp')
           let errorMessage = error.message;
           console.log(errorCode);
           console.log(errorMessage);
+          alert(errorMessage)
         });
     }
 

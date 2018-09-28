@@ -10,10 +10,12 @@
 angular.module('eventPlannerApp')
   .controller('EventsCtrl', ['$scope', 'firebaseApi', function ($scope, firebaseApi) {
     this.allEvents = [];
-    this.name = '';
-    this.location = '';
-    this.date = '';
-    this.time = '';
+    this.ev = {
+          name: '',
+          location: '',
+          date: '',
+          time: ''
+        }
     const eventsRef = firebase.database().ref('/events');
 
       // updating list every time an element is added
@@ -36,6 +38,9 @@ angular.module('eventPlannerApp')
     this.setAddListener = async () => {
       await eventsRef.on('child_added', (data) => {
         console.log('child_added');
+        console.log('data');
+        console.log(data);
+        console.log('data.val()');
         console.log(data.val());
           this.allEvents.push(data.val());
       });
@@ -55,19 +60,19 @@ angular.module('eventPlannerApp')
     };
 
     this.addEvent = () => {
-      if (this.name && this.location && this.date) {
-        //for (let i = 0; i <= 10; i++) {
-          firebaseApi.addElement(this.name, this.location, this.date, this.time);
+      console.log('event');
+      console.log(this.ev);
+      if (this.ev.name && this.ev.location && this.ev.date) {
+          firebaseApi.addElement(this.ev.name, this.ev.location, this.ev.date, this.ev.time);
           this.resetInput();
-        //};
       }
     };
 
     this.resetInput = () => {
-      this.name = '';
-      this.location = '';
-      this.date = '';
-      this.time = '';
+      this.ev.name = '';
+      this.ev.location = '';
+      this.ev.date = '';
+      this.ev.time = '';
       $('.input').val('');
     };
 

@@ -1,24 +1,39 @@
-<div class="button-center buttons-main text-container invert-color button-add-rmv"><span class="iconicstroke-plus symbol "></span></div>
-<form>
-    <label>Event name: </label><input class="input" type="text" ng-model="events.name" placeholder="Event's name"
-        required><br>
-    <label>Location: </label><input class="input" type="text" ng-model="events.location" placeholder="Location" name="location"
-        required><br>
-    <label>Date: </label><input class="input" type="date" ng-model="events.date" required><br>
-    <label for="appt-time">Time: </label><input class="input" type="time" ng-model="events.time" name="appt-time" value="events.time"><br>
-    <button ng-click="events.addEvent()">add Event</button>
-</form>
-
-<div>
-    <button ng-model="events.allEvents" ng-click="events.getDatabase()">get Database</button>
-    <ul ng-repeat="event in events.allEvents">
-        <button ng-click="events.deleteEvent(event.eventid)">delete Event</button>
+<div class="button-center buttons-main text-container invert-color button-add" ng-click="create = !create"><span class="iconicstroke-plus symbol"></span></div>
+<section class="centered" ng-show="create">
+    <form class="main-title">
+        <label for="event-name" class="sr-only">Event name: </label>
+        <div class="buttons-main text-container">
+            <input id="event-name" class="input input-text" type="text" ng-model="events.ev.name" placeholder="Event's name"
+                required>
+        </div>
+        <label for="event-location" class="sr-only">Location:</label>
+        <div class="buttons-main text-container">
+            <input id="event-location" class="input input-text" type="text" ng-model="events.ev.location" placeholder="Location"
+                name="location" required>
+        </div>
+        <label class="sr-only" for="">Date:</label>
+        <div class="buttons-main text-container">
+            <input id="event-date" class="input input-text" type="date" ng-model="events.ev.date" required>
+        </div>
+        <label class="sr-only" for="appt-time">Time:</label>
+        <div class="buttons-main text-container">
+            <input class="input input-text" type="time" ng-model="events.ev.time" name="appt-time">
+        </div>
+        <input class="invert-color buttons-main text-container" type="submit" value="add Event" ng-click="events.addEvent()">
+    </form>
+</section>
+<div class="centered">
+    <input class="button-center buttons-main text-container invert-color" type="button" ng-model="events.allEvents" ng-click="events.getDatabase()" value ="sync events">
+</div>
+<div id="events-list">
+    <ul ng-repeat="event in events.allEvents"  class="event-list button-center buttons-main text-container invert-color">
+        <div class="button-center buttons-main text-container invert-color button-remove" ng-click="events.deleteEvent(event.eventid)"><span class="iconicstroke-x symbol-rmv"></span></div>
         <li>
-            <p>Author: {{event.author}}</p>
-            <p>name: {{event.name}}</p>
-            <p>Location: {{event.location}}</p>
-            <p>date: {{event.date}}</p>
-            <p>time: {{event.time}}</p>
+            <p>{{event.name}}</p>
+            <p>{{event.location}}</p>
+            <p>date:<br>{{event.date | date:'MM/dd/yyyy'}}<span ng-show="event.time"> at: {{event.time | date:'h:mma'}}</span>
+            <p>Author:<br>{{event.author}}</p>
+            </p>
         </li>
     </ul>
 </div>
