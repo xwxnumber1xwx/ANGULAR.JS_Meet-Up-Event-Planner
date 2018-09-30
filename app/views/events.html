@@ -1,5 +1,5 @@
 <div class="button-center buttons-main text-container invert-color button-add" ng-click="create = !create"><span class="iconicstroke-plus symbol"></span></div>
-<section class="centered" ng-show="create">
+<section class="centered anim-fadeIn" ng-show="create">
     <form class="main-title">
         <label for="event-name" class="sr-only">Event name: </label>
         <div class="buttons-main text-container">
@@ -15,13 +15,19 @@
         <div class="buttons-main text-container">
             <input id="event-date" class="input input-text" type="date" ng-model="events.ev.date" required>
         </div>
-        <label class="sr-only" for="appt-time">Time:</label>
+        <label class="sr-only" for="appt-time">start at:</label>
         <div class="buttons-main text-container">
             <input class="input input-text" type="time" ng-model="events.ev.time" name="appt-time">
         </div>
-        <input class="invert-color buttons-main text-container" type="submit" value="add Event" ng-click="events.addEvent()">
+        <label class="sr-only" for="appt-endTime">end at:</label>
+        <div class="buttons-main text-container">
+            <input class="input input-text" type="time" ng-model="events.ev.endTime" name="appt-endTime">
+        </div>
+        <input class="invert-color buttons-main text-container" type="button" value="Add Event" ng-click="events.addEvent(); create = !create;">
+        <input class="invert-color buttons-main text-container" type="button" value="Cancel" ng-click="create = !create">
     </form>
 </section>
+
 <div class="centered">
     <input class="button-center buttons-main text-container invert-color" type="button" ng-model="events.allEvents" ng-click="events.getDatabase()" value ="sync events">
 </div>
@@ -31,7 +37,9 @@
         <li>
             <p>{{event.name}}</p>
             <p>{{event.location}}</p>
-            <p>date:<br>{{event.date | date:'MM/dd/yyyy'}}<span ng-show="event.time"> at: {{event.time | date:'h:mma'}}</span>
+            <p>date:<br>{{event.date | date:'MM/dd/yyyy'}}<p>
+            <span ng-show="event.time"> at: {{event.time | date:'h:mma'}}</span><span ng-show="event.endTime"> until: {{event.endTime | date:'h:mma'}}</span>
+            </p>
             <p>Author:<br>{{event.author}}</p>
             </p>
         </li>

@@ -47,7 +47,7 @@ body {
 #title {
   top: 40vh;
   position: absolute;
-  left: 47vw;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 
@@ -196,6 +196,20 @@ input:-webkit-autofill {
   margin-bottom: 10px;
   cursor: pointer;
 }
+
+/* animation on adding button*/
+
+.anim-fadeIn {
+  transition: all 0.5s;
+  height: 100vh;
+  opacity: 1;
+}
+
+.anim-fadeIn.ng-hide {
+  height: 0;
+  opacity: 0;
+}
+
 /*remove events button*/
 .button-remove {
   position: absolute;

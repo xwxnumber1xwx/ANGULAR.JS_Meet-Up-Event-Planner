@@ -9,29 +9,30 @@
  */
 angular.module('eventPlannerApp')
   .controller('EventsCtrl', ['$scope', 'firebaseApi', function ($scope, firebaseApi) {
+    const eventsRef = firebase.database().ref('/events');
     this.allEvents = [];
     this.ev = {
-          name: '',
-          location: '',
-          date: '',
-          time: ''
-        }
-    const eventsRef = firebase.database().ref('/events');
+      name: '',
+      location: '',
+      date: '',
+      time: '',
+      endTime: ''
+    };
 
-      // updating list every time an element is added
-/*       firebaseApi.setAddListener()
-        .then(response => {
-          this.allEvents = response;
-          console.log('allEvents');
-          console.log(this.allEvents);
-        }); */
+    // updating list every time an element is added
+    /*       firebaseApi.setAddListener()
+            .then(response => {
+              this.allEvents = response;
+              console.log('allEvents');
+              console.log(this.allEvents);
+            }); */
 
-      /* firebaseApi.setRemoveListener()
-      .then(response => {
-        console.log('firebaseApi.setRemoveListener()');
-        console.log(response);
-        this.removeElement(response[0]);
-      }); */
+    /* firebaseApi.setRemoveListener()
+    .then(response => {
+      console.log('firebaseApi.setRemoveListener()');
+      console.log(response);
+      this.removeElement(response[0]);
+    }); */
 
 
     //add element listener
@@ -42,7 +43,7 @@ angular.module('eventPlannerApp')
         console.log(data);
         console.log('data.val()');
         console.log(data.val());
-          this.allEvents.push(data.val());
+        this.allEvents.push(data.val());
       });
     }
 
@@ -63,21 +64,24 @@ angular.module('eventPlannerApp')
       console.log('event');
       console.log(this.ev);
       if (this.ev.name && this.ev.location && this.ev.date) {
-          firebaseApi.addElement(this.ev.name, this.ev.location, this.ev.date, this.ev.time);
-          this.resetInput();
+        firebaseApi.addElement(this.ev.name, this.ev.location, this.ev.date, this.ev.time, this.ev.endTime);
+        this.resetInput();
       }
     };
 
     this.resetInput = () => {
-      this.ev.name = '';
-      this.ev.location = '';
-      this.ev.date = '';
-      this.ev.time = '';
+      this.ev = {
+        name: '',
+        location: '',
+        date: '',
+        time: '',
+        endTime: ''
+      }
       $('.input').val('');
     };
 
     this.getDatabase = () => {
-      this.allEvents = firebaseApi.getDatabase();
+        this.allEvents = firebaseApi.getDatabase();
       console.log(this.allEvents);
     };
 
