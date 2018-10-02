@@ -94,7 +94,16 @@ body {
   background: black;
   padding: 8px 30px;
   border-radius: 25px;
-  max-width: 450px;
+  max-width: 400px;
+  margin: 10px auto 10px;
+}
+
+.buttons-small {
+  color: inherit;
+  background: black;
+  padding: 8px 30px;
+  border-radius: 25px;
+  width: 45%;
   margin: 10px auto 10px;
 }
 
@@ -113,10 +122,22 @@ body {
   position: relative;
 }
 
+.event-list:hover, .event-container:hover, .button-center:hover, .buttons-main:hover, .buttons-small:hover,
+.event-list:focus, .event-container:focus, .button-center:focus, .buttons-main:focus, .buttons-small:focus {
+  transition: all 0.4s;
+  opacity: 1;
+}
+
 /*input forms settings*/
 .input-text {
   text-align: center;
   min-width: 250px;
+  height: 32px;
+  width: 100%;
+}
+
+.input-text-small {
+  text-align: center;
   height: 32px;
   width: 100%;
 }
@@ -197,6 +218,16 @@ input:-webkit-autofill {
   cursor: pointer;
 }
 
+.button-yes {
+  background: green;
+  width: 100px;
+}
+
+.button-no {
+  background: red;
+  width: 100px;
+}
+
 /* animation on adding button*/
 
 .anim-fadeIn {
@@ -208,6 +239,16 @@ input:-webkit-autofill {
 .anim-fadeIn.ng-hide {
   height: 0;
   opacity: 0;
+}
+
+.anim-fadeIn-small {
+  height: 200px;
+}
+
+.anim-rotate {
+  transition: all 0.5s;
+  opacity: 1;
+  transform: rotateY(180deg);
 }
 
 /*remove events button*/

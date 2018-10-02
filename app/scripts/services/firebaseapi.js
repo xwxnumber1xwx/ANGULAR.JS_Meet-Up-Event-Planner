@@ -95,8 +95,8 @@ angular.module('eventPlannerApp')
     //Write a new event
     this.setEvent = (uid, author, name, location, date, time, endTime) => {
 
-      // get a key for new post
-      let newPostKey = firebase.database().ref().child('posts').push().key
+      // get a key for new event
+      let newEventKey = firebase.database().ref().child('posts').push().key
 
       let event = {
         uid: uid,
@@ -106,14 +106,12 @@ angular.module('eventPlannerApp')
         date: date,
         time: time,
         endTime: endTime,
-        eventid: newPostKey
-      }
-
-        ;
+        eventid: newEventKey
+      };
 
       //creating object for write it on the database
       let updates = {};
-      updates['/events/' + newPostKey] = event;
+      updates['/events/' + newEventKey] = event;
 
       return firebase.database().ref().update(updates);
     }

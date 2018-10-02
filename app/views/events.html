@@ -1,47 +1,73 @@
-<div class="button-center buttons-main text-container invert-color button-add" ng-click="create = !create"><span class="iconicstroke-plus symbol"></span></div>
-<section class="centered anim-fadeIn" ng-show="create">
-    <form class="main-title">
-        <label for="event-name" class="sr-only">Event name: </label>
-        <div class="buttons-main text-container">
-            <input id="event-name" class="input input-text" type="text" ng-model="events.ev.name" placeholder="Event's name"
-                required>
-        </div>
-        <label for="event-location" class="sr-only">Location:</label>
-        <div class="buttons-main text-container">
-            <input id="event-location" class="input input-text" type="text" ng-model="events.ev.location" placeholder="Location"
-                name="location" required>
-        </div>
-        <label class="sr-only" for="">Date:</label>
-        <div class="buttons-main text-container">
-            <input id="event-date" class="input input-text" type="date" ng-model="events.ev.date" required>
-        </div>
-        <label class="sr-only" for="appt-time">start at:</label>
-        <div class="buttons-main text-container">
-            <input class="input input-text" type="time" ng-model="events.ev.time" name="appt-time">
-        </div>
-        <label class="sr-only" for="appt-endTime">end at:</label>
-        <div class="buttons-main text-container">
-            <input class="input input-text" type="time" ng-model="events.ev.endTime" name="appt-endTime">
-        </div>
-        <input class="invert-color buttons-main text-container" type="button" value="Add Event" ng-click="events.addEvent(); create = !create;">
-        <input class="invert-color buttons-main text-container" type="button" value="Cancel" ng-click="create = !create">
-    </form>
-</section>
+<div ng-show="events.user">
+    <div class="button-center buttons-main text-container invert-color button-add" ng-click="create = !create"><span
+            class="iconicstroke-plus symbol"></span></div>
+    <section class="centered anim-fadeIn" ng-show="create">
+        <form class="main-title">
+            <label for="event-name" class="sr-only">Event name: </label>
+            <div class="buttons-main text-container">
+                <input id="event-name" class="input input-text" type="text" ng-model="events.ev.name" placeholder="Event's name"
+                    required>
+            </div>
+            <label for="event-location" class="sr-only">Location:</label>
+            <div class="buttons-main text-container">
+                <input id="event-location" class="input input-text" type="text" ng-model="events.ev.location"
+                    placeholder="Location" name="location" required>
+            </div>
+            <label class="sr-only" for="">Date:</label>
+            <div class="buttons-main text-container">
+                <input id="event-date" class="input input-text" type="date" ng-model="events.ev.date" required>
+            </div>
+            <div class="flex">
+                <label class="sr-only" for="appt-time">start at:</label>
+                <div class="text-container buttons-small">
+                    <input class="input input-text-small" type="time" ng-model="events.ev.time" name="appt-time">
+                </div>
+                <label class="sr-only" for="appt-endTime">end at:</label>
+                <div class="text-container buttons-small">
+                    <input class="input input-text-small" type="time" ng-model="events.ev.endTime" name="appt-endTime">
+                </div>
+            </div>
 
-<div class="centered">
-    <input class="button-center buttons-main text-container invert-color" type="button" ng-model="events.allEvents" ng-click="events.getDatabase()" value ="sync events">
+            <input class="invert-color buttons-main text-container" type="button" value="Add Event" ng-click="events.addEvent(); create = !create;">
+            <input class="invert-color buttons-main text-container" type="button" value="Cancel" ng-click="create = !create">
+        </form>
+    </section>
+
+    <div class="centered">
+        <input class="button-center buttons-main text-container invert-color" type="button" ng-model="events.allEvents"
+            ng-click="events.getDatabase()" value="sync events">
+    </div>
+    <div id="events-list">
+        <ul ng-repeat="event in events.allEvents" id="{{event.eventid}}" class="event-list button-center buttons-main text-container invert-color">
+            <div class="button-center buttons-main text-container invert-color button-remove" ng-click="delete = !delete">
+                <span class="iconicstroke-x symbol-rmv"></span></div>
+            <div class="anim-fadeIn anim-fadeIn-small" ng-show="delete">
+                <label>Do you really want to delete it?</label>
+                <input class="invert-color buttons-main text-container button-yes" type="button" value="Yes" ng-click="events.deleteEvent(event.eventid)">
+                <input class="invert-color buttons-main text-container button-no" type="button" value="No" ng-click="delete = !delete">
+            </div>
+            <li>
+                <p>{{event.name}}</p>
+                <p>{{event.location}}</p>
+                <p>date:<br>{{event.date | date:'MM/dd/yyyy'}}<p>
+                        <span ng-show="event.time"> at: {{event.time | date:'h:mma'}}</span><span ng-show="event.endTime">
+                            until: {{event.endTime | date:'h:mma'}}</span>
+                    </p>
+                    <p>Author:<br>{{event.author}}</p>
+                </p>
+            </li>
+        </ul>
+    </div>
 </div>
-<div id="events-list">
-    <ul ng-repeat="event in events.allEvents"  class="event-list button-center buttons-main text-container invert-color">
-        <div class="button-center buttons-main text-container invert-color button-remove" ng-click="events.deleteEvent(event.eventid)"><span class="iconicstroke-x symbol-rmv"></span></div>
-        <li>
-            <p>{{event.name}}</p>
-            <p>{{event.location}}</p>
-            <p>date:<br>{{event.date | date:'MM/dd/yyyy'}}<p>
-            <span ng-show="event.time"> at: {{event.time | date:'h:mma'}}</span><span ng-show="event.endTime"> until: {{event.endTime | date:'h:mma'}}</span>
-            </p>
-            <p>Author:<br>{{event.author}}</p>
-            </p>
-        </li>
-    </ul>
+
+<div ng-show="!events.user">
+    <div id="main-container">
+        <section class='main-title' id="title">
+            <p class="big-font">you must be logged in to see the events</h1>
+                <div class="invert-color flex">
+                    <a class="buttons-main text-container" ui-sref="login" id="signin-title">Sign-In</a>
+                    <a class="buttons-main text-container" ui-sref="registration" id="signup-title">Sign-Up</a>
+                </div>
+    </div>
+    </section>
 </div>

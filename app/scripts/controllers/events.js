@@ -11,6 +11,7 @@ angular.module('eventPlannerApp')
   .controller('EventsCtrl', ['$scope', 'firebaseApi', function ($scope, firebaseApi) {
     const eventsRef = firebase.database().ref('/events');
     this.allEvents = [];
+    this.user = {};
     this.ev = {
       name: '',
       location: '',
@@ -60,6 +61,7 @@ angular.module('eventPlannerApp')
       });
     };
 
+    // add an event
     this.addEvent = () => {
       console.log('event');
       console.log(this.ev);
@@ -81,16 +83,20 @@ angular.module('eventPlannerApp')
     };
 
     this.getDatabase = () => {
-        this.allEvents = firebaseApi.getDatabase();
+      this.allEvents = firebaseApi.getDatabase();
       console.log(this.allEvents);
     };
 
+    // delete event
     this.deleteEvent = (id) => {
       console.log('deleting');
       firebaseApi.deleteElement(id);
       this.getDatabase();
     };
 
+    setTimeout(() => {
+      this.user = firebaseApi.getCurrentUser();
+    }, 0);
     this.setAddListener();
     this.setRemoveListener();
   }]);
