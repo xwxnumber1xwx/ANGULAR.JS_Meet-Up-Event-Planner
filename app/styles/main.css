@@ -221,11 +221,13 @@ input:-webkit-autofill {
 .button-yes {
   background: green;
   width: 100px;
+  color: black!important;
 }
 
 .button-no {
   background: red;
   width: 100px;
+  color: black!important;
 }
 
 /* animation on adding button*/
@@ -322,6 +324,10 @@ input:-webkit-autofill {
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
+  .bg{
+    background-image: url('/images/seth-reese-599260-unsplash-big.jpg');
+  }
+
   .container {
     max-width: 1100px;
   }

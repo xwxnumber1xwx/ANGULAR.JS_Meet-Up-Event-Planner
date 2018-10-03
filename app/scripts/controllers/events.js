@@ -9,7 +9,13 @@
  */
 angular.module('eventPlannerApp')
   .controller('EventsCtrl', ['$scope', 'firebaseApi', function ($scope, firebaseApi) {
+    //Firebase Database url
     const eventsRef = firebase.database().ref('/events');
+
+    // Google Maps autocomplete
+    const locationInput = document.querySelector('#event-location');
+    let autocomplete = new google.maps.places.Autocomplete(locationInput);
+
     this.allEvents = [];
     this.user = {};
     this.ev = {
@@ -20,21 +26,13 @@ angular.module('eventPlannerApp')
       endTime: ''
     };
 
-    // updating list every time an element is added
-    /*       firebaseApi.setAddListener()
-            .then(response => {
-              this.allEvents = response;
-              console.log('allEvents');
-              console.log(this.allEvents);
-            }); */
-
-    /* firebaseApi.setRemoveListener()
-    .then(response => {
-      console.log('firebaseApi.setRemoveListener()');
-      console.log(response);
-      this.removeElement(response[0]);
-    }); */
-
+    //add listener to Google Maps autocomplete
+    autocomplete.addListener('place_changed', () => {
+      console.log('autocomplete.getPlace()')
+      console.log(autocomplete.getPlace())
+      this.ev.location =  `${autocomplete.getPlace().name}, ${autocomplete.getPlace().formatted_address}`;
+      $scope.$apply();
+    });
 
     //add element listener
     this.setAddListener = async () => {
@@ -94,9 +92,7 @@ angular.module('eventPlannerApp')
       this.getDatabase();
     };
 
-    setTimeout(() => {
-      this.user = firebaseApi.getCurrentUser();
-    }, 0);
+    this.user = firebaseApi.getCurrentUser();
     this.setAddListener();
     this.setRemoveListener();
   }]);
