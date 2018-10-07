@@ -30,16 +30,14 @@ angular.module('eventPlannerApp')
     autocomplete.addListener('place_changed', () => {
       console.log('autocomplete.getPlace()')
       console.log(autocomplete.getPlace())
-      this.ev.location =  `${autocomplete.getPlace().name}, ${autocomplete.getPlace().formatted_address}`;
+      this.ev.location = `${autocomplete.getPlace().name}, ${autocomplete.getPlace().formatted_address}`;
       $scope.$apply();
     });
 
     //add element listener
-    this.setAddListener = async () => {
-      await eventsRef.on('child_added', (data) => {
+    this.setAddListener = () => {
+      eventsRef.on('child_added', (data) => {
         console.log('child_added');
-        console.log('data');
-        console.log(data);
         console.log('data.val()');
         console.log(data.val());
         this.allEvents.push(data.val());
@@ -47,8 +45,8 @@ angular.module('eventPlannerApp')
     }
 
     // remove element listener
-    this.setRemoveListener = async () => {
-      await eventsRef.on('child_removed', (data) => {
+    this.setRemoveListener = () => {
+      eventsRef.on('child_removed', (data) => {
         console.log('child_removed');
         console.log(data.val());
         //Remove element from the allEvents list
@@ -82,7 +80,9 @@ angular.module('eventPlannerApp')
 
     this.getDatabase = () => {
       this.allEvents = firebaseApi.getDatabase();
+      this.allEvents.sort(this.compareEvents);
       console.log(this.allEvents);
+      this.checkOldEvents();
     };
 
     // delete event
@@ -92,7 +92,33 @@ angular.module('eventPlannerApp')
       this.getDatabase();
     };
 
+    //Sort array of object
+    this.compareEvents = (a, b) => {
+      if (a.date.valueOf() < b.date.valueOf()) {
+        return -1;
+      }
+      if (a.date.valueOf() > b.date.valueOf()) {
+        return 1;
+      }
+      return 0;
+    }
+
+    //delete old Events
+    this.checkOldEvents = () => {
+      for (let i = this.allEvents.length-1; i >= 0; i--) {
+        if (Date.parse(this.allEvents[i].date) < Date.now()) {
+          console.log(`Event ${this.allEvents[i].name} was deleted because it has already passed`);
+          this.deleteEvent(this.allEvents[i].eventid);
+        }
+      }
+    }
+
     this.user = firebaseApi.getCurrentUser();
     this.setAddListener();
     this.setRemoveListener();
+    setTimeout(() => {
+      this.checkOldEvents();
+      this.allEvents.sort(this.compareEvents);
+      $scope.$apply();
+    }, 300)
   }]);

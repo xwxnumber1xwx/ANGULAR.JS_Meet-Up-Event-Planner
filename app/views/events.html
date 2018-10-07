@@ -12,21 +12,22 @@
             <div class="buttons-main text-container">
                 <input id="event-location" class="input input-text" type="text" ng-model="events.ev.location"
                     placeholder="Location" name="location" required>
-                    <p>{{events.ev.location}}</p>
             </div>
             <label class="sr-only" for="">Date:</label>
             <div class="buttons-main text-container">
                 <input id="event-date" class="input input-text" type="date" ng-model="events.ev.date" required>
             </div>
             <div class="flex">
-                <label class="sr-only" for="appt-time">start at:</label>
-                <div class="text-container buttons-small">
-                    <input class="input input-text-small" type="time" ng-model="events.ev.time" name="appt-time">
-                </div>
-                <label class="sr-only" for="appt-endTime">end at:</label>
-                <div class="text-container buttons-small">
-                    <input class="input input-text-small" type="time" ng-model="events.ev.endTime" name="appt-endTime">
-                </div>
+                <label class="push-center" for="appt-time">from:
+                    <div class="text-container buttons-small">
+                        <input class="input input-text-small" type="time" ng-model="events.ev.time" name="appt-time">
+                    </div>
+                </label>
+                <label class="push-center" for="appt-endTime">to:
+                    <div class="text-container buttons-small">
+                        <input class="input input-text-small" type="time" ng-model="events.ev.endTime" name="appt-endTime">
+                    </div>
+                </label>
             </div>
 
             <input class="invert-color buttons-main text-container" type="button" value="Add Event" ng-click="events.addEvent(); create = !create;">

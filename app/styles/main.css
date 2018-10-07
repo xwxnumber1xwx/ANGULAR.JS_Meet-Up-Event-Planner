@@ -103,7 +103,7 @@ body {
   background: black;
   padding: 8px 30px;
   border-radius: 25px;
-  width: 45%;
+  width: 100%;
   margin: 10px auto 10px;
 }
 
@@ -113,6 +113,10 @@ body {
 
 .centered {
   text-align: center;
+}
+
+.push-center {
+  margin: auto;
 }
 
 .event-list  {
@@ -140,6 +144,7 @@ body {
   text-align: center;
   height: 32px;
   width: 100%;
+  min-width: 115px;
 }
 
 input, textarea {
@@ -234,7 +239,7 @@ input:-webkit-autofill {
 
 .anim-fadeIn {
   transition: all 0.5s;
-  height: 100vh;
+  height: 150vh;
   opacity: 1;
 }
 
@@ -356,5 +361,9 @@ input:-webkit-autofill {
 @media screen and (max-width: 480px) {
   .input-text {
     font-size: 0.6em;
+  }
+  .input-text-small {
+    font-size: 0.6em;
+    min-width: 80px;
   }
 }

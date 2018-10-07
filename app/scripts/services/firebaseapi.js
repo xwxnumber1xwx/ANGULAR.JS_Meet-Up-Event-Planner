@@ -135,7 +135,6 @@ angular.module('eventPlannerApp')
     }
 
     this.deleteElement = (eventId) => {
-      console.log('delete is started')
       let eventRef = firebase.database().ref('events/' + eventId).remove();
       console.log('event deleted');
     }
