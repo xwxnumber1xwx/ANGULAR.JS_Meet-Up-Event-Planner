@@ -10,7 +10,7 @@
             </div>
             <label for="event-location" class="sr-only">Location:</label>
             <div class="buttons-main text-container">
-                <input id="event-location" class="input input-text" type="text" ng-model="events.ev.location"
+                <input id="event-location" class="input input-text" type="text" ng-model="events.ev.location.name"
                     placeholder="Location" name="location" required>
             </div>
             <label class="sr-only" for="">Date:</label>
@@ -50,7 +50,10 @@
             </div>
             <li>
                 <p>{{event.name}}</p>
-                <p>{{event.location}}</p>
+                <div class="location">
+                    <span class="location-name">{{event.location.name}}</span><span ng-click="events.showMaps(event.eventid, event.location.lat, event.location.lng)" class="fontawesome-map-marker location-marker"></span>
+                </div>
+                <div id="map-{{event.eventid}}" class="location-map not-show"></div>
                 <p>date:<br>{{event.date | date:'MM/dd/yyyy'}}<p>
                         <span ng-show="event.time"> at: {{event.time | date:'h:mma'}}</span><span ng-show="event.endTime">
                             until: {{event.endTime | date:'h:mma'}}</span>
@@ -73,3 +76,10 @@
     </div>
     </section>
 </div>
+<!-- 
+<div id="modal" class="not-show">
+    <div id="content-map">
+        <div id="close-modal" class="button-center buttons-main text-container invert-color button-remove" role="button" ng-click="events.showMaps()"><span class="iconicstroke-x symbol-rmv"></span></div>
+        <div id="map"></div>
+</div>
+</div> -->

@@ -16,21 +16,46 @@ angular.module('eventPlannerApp')
     const locationInput = document.querySelector('#event-location');
     let autocomplete = new google.maps.places.Autocomplete(locationInput);
 
+    this.map;
     this.allEvents = [];
     this.user = {};
     this.ev = {
       name: '',
-      location: '',
+      location: {
+        name: '',
+        lat: '',
+        lng: ''
+      },
       date: '',
       time: '',
       endTime: ''
     };
 
+    // initialize google maps
+/*     this.initMap = () => {
+        this.map = new google.maps.Map(document.querySelector('#map'), {
+          center: { lat: -34.397, lng: 150.644 },
+          zoom: 8
+        });
+    } */
+
+    this.showMaps = (id, lat, lng) => {
+      new google.maps.Map(document.querySelector(`#map-${id}`), {
+        center: { lat: lat, lng: lng },
+        zoom: 12
+      });
+      $(`#map-${id}`).toggleClass('not-show');
+      //this.createMarker(lat,lng);
+     //$('#modal').toggleClass('not-show');
+    }
+
     //add listener to Google Maps autocomplete
     autocomplete.addListener('place_changed', () => {
       console.log('autocomplete.getPlace()')
-      console.log(autocomplete.getPlace())
-      this.ev.location = `${autocomplete.getPlace().name}, ${autocomplete.getPlace().formatted_address}`;
+      console.log(autocomplete.getPlace());
+      this.ev.location.name = `${autocomplete.getPlace().name}, ${autocomplete.getPlace().formatted_address}`;
+      this.ev.location.lat = autocomplete.getPlace().geometry.location.lat();
+      this.ev.location.lng = autocomplete.getPlace().geometry.location.lng();
       $scope.$apply();
     });
 
@@ -105,7 +130,7 @@ angular.module('eventPlannerApp')
 
     //delete old Events
     this.checkOldEvents = () => {
-      for (let i = this.allEvents.length-1; i >= 0; i--) {
+      for (let i = this.allEvents.length - 1; i >= 0; i--) {
         if (Date.parse(this.allEvents[i].date) < Date.now()) {
           console.log(`Event ${this.allEvents[i].name} was deleted because it has already passed`);
           this.deleteEvent(this.allEvents[i].eventid);
@@ -116,9 +141,11 @@ angular.module('eventPlannerApp')
     this.user = firebaseApi.getCurrentUser();
     this.setAddListener();
     this.setRemoveListener();
+    //this.initMap();
     setTimeout(() => {
       this.checkOldEvents();
       this.allEvents.sort(this.compareEvents);
       $scope.$apply();
-    }, 300)
+    }, 300);
+
   }]);

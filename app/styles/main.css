@@ -1,9 +1,59 @@
 @import url(http://weloveiconfonts.com/api/?family=iconicstroke);
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
 
 /* iconicstroke */
 [class*="iconicstroke-"]:before {
   font-family: 'IconicStroke', sans-serif;
 }
+
+.not-show {
+  display: none;
+}
+
+/*modal container for google maps*/
+#modal {
+  width: 100%;
+  background-color:rgba(0, 0, 0, 0.7);
+  height: 100%;
+  margin: auto;
+  top: 0;
+  z-index: 100;
+  left: 0;
+  position: fixed;
+}
+
+#close-modal {
+  height: 48px;
+  width: 48px;
+  background: black;
+  color: white;
+  position: absolute;
+  z-index: 200;
+  right: -25px;
+  top: -25px;
+  font-size: 1.5em;
+}
+
+/*google maps*/
+#content-map {
+    width: 80%;
+  height: 80%;
+  margin: auto;
+  position: relative;
+  top: 50%;
+  transform: translate(0,-50%);
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+
 
 .browsehappy {
   margin: 0.2em 0;
@@ -233,6 +283,36 @@ input:-webkit-autofill {
   background: red;
   width: 100px;
   color: black!important;
+}
+
+.push-right {
+  float: right;
+}
+
+.push-left {
+  float: left;
+}
+
+.location {
+  display: flex;
+}
+
+.location-name {
+  text-align: center;
+  margin: auto;
+}
+
+.location-marker {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  margin: auto;
+  margin-right: -20px;
+  border: 1px solid;
+}
+
+.location-map {
+  height: 300px;
 }
 
 /* animation on adding button*/
