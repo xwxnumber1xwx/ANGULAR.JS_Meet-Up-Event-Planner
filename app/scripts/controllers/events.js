@@ -15,10 +15,9 @@ angular.module('eventPlannerApp')
     // Google Maps autocomplete
     const locationInput = document.querySelector('#event-location');
     let autocomplete = new google.maps.places.Autocomplete(locationInput);
-
-    this.map;
     this.allEvents = [];
     this.user = {};
+    this.map = {};
     this.ev = {
       name: '',
       location: {
@@ -32,22 +31,32 @@ angular.module('eventPlannerApp')
     };
 
     // initialize google maps
-/*     this.initMap = () => {
-        this.map = new google.maps.Map(document.querySelector('#map'), {
-          center: { lat: -34.397, lng: 150.644 },
-          zoom: 8
-        });
-    } */
+    /*     this.initMap = () => {
+            this.map = new google.maps.Map(document.querySelector('#map'), {
+              center: { lat: -34.397, lng: 150.644 },
+              zoom: 8
+            });
+        } */
 
-    this.showMaps = (id, lat, lng) => {
-      new google.maps.Map(document.querySelector(`#map-${id}`), {
-        center: { lat: lat, lng: lng },
-        zoom: 12
-      });
-      $(`#map-${id}`).toggleClass('not-show');
+    this.showMaps = (name, id, lat, lng) => {
+      var myLatLng = {lat: lat, lng: lng};
+      if ($(`#map-${id}`).hasClass('not-show')) {
+        this.map = new google.maps.Map(document.querySelector(`#map-${id}`), {
+          center: myLatLng,
+          zoom: 15
+        });
+       var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: this.map,
+          title: name
+        });
+      }
+      setTimeout(() => {
+        $(`#map-${id}`).toggleClass('not-show');
+      }, 300);
       //this.createMarker(lat,lng);
-     //$('#modal').toggleClass('not-show');
-    }
+      //$('#modal').toggleClass('not-show');
+    };
 
     //add listener to Google Maps autocomplete
     autocomplete.addListener('place_changed', () => {

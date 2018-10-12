@@ -12,7 +12,8 @@
 }
 
 .not-show {
-  display: none;
+  /*display: none;*/
+  height: 0px!important;
 }
 
 /*modal container for google maps*/
@@ -308,11 +309,12 @@ input:-webkit-autofill {
   min-width: 48px;
   margin: auto;
   margin-right: -20px;
-  border: 1px solid;
+  cursor: pointer;
 }
 
 .location-map {
   height: 300px;
+  transition: all 0.5s;
 }
 
 /* animation on adding button*/

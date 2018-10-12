@@ -31,7 +31,7 @@
             </div>
 
             <input class="invert-color buttons-main text-container" type="button" value="Add Event" ng-click="events.addEvent(); create = !create;">
-            <input class="invert-color buttons-main text-container" type="button" value="Cancel" ng-click="create = !create">
+            <input class="invert-color buttons-main text-container" type="button" value="Cancel" ng-click="create = !create; events.resetInput()">
         </form>
     </section>
 
@@ -51,7 +51,7 @@
             <li>
                 <p>{{event.name}}</p>
                 <div class="location">
-                    <span class="location-name">{{event.location.name}}</span><span ng-click="events.showMaps(event.eventid, event.location.lat, event.location.lng)" class="fontawesome-map-marker location-marker"></span>
+                    <span class="location-name">{{event.location.name}}</span><span ng-click="events.showMaps(event.name, event.eventid, event.location.lat, event.location.lng)" class="fontawesome-map-marker location-marker"></span>
                 </div>
                 <div id="map-{{event.eventid}}" class="location-map not-show"></div>
                 <p>date:<br>{{event.date | date:'MM/dd/yyyy'}}<p>
