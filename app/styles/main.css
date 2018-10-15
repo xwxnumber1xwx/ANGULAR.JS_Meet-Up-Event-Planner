@@ -449,3 +449,26 @@ input:-webkit-autofill {
     min-width: 80px;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .navbar-header {
+    position: absolute;
+}
+  .navbar-nav {
+    float: unset;
+    margin: auto;
+    display: table;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .main-title p, .main-title h2 {
+    font-size: 2em;
+  }
+  .main-title h1 {
+    font-size: 3em;
+  }
+  .navbar-brand {
+    font-size: 1em!important;
+  }
+}

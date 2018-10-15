@@ -39,13 +39,13 @@ angular.module('eventPlannerApp')
         } */
 
     this.showMaps = (name, id, lat, lng) => {
-      var myLatLng = {lat: lat, lng: lng};
+      var myLatLng = { lat: lat, lng: lng };
       if ($(`#map-${id}`).hasClass('not-show')) {
         this.map = new google.maps.Map(document.querySelector(`#map-${id}`), {
           center: myLatLng,
           zoom: 15
         });
-       var marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({
           position: myLatLng,
           map: this.map,
           title: name
@@ -62,7 +62,15 @@ angular.module('eventPlannerApp')
     autocomplete.addListener('place_changed', () => {
       console.log('autocomplete.getPlace()')
       console.log(autocomplete.getPlace());
-      this.ev.location.name = `${autocomplete.getPlace().name}, ${autocomplete.getPlace().formatted_address}`;
+      let address = autocomplete.getPlace().formatted_address;
+      let placeName = autocomplete.getPlace().name;
+      if (address) {
+        if (address.includes(placeName)) {
+          this.ev.location.name = address;
+        } else {
+          this.ev.location.name = `${placeName}, ${address}`;
+        }
+      }
       this.ev.location.lat = autocomplete.getPlace().geometry.location.lat();
       this.ev.location.lng = autocomplete.getPlace().geometry.location.lng();
       $scope.$apply();
@@ -97,21 +105,27 @@ angular.module('eventPlannerApp')
       console.log(this.ev);
       if (this.ev.name && this.ev.location && this.ev.date) {
         firebaseApi.addElement(this.ev.name, this.ev.location, this.ev.date, this.ev.time, this.ev.endTime);
-        this.resetInput();
+        this.clearInput();
       }
     };
 
-    this.resetInput = () => {
+    // clear all input value
+    this.clearInput = () => {
       this.ev = {
         name: '',
-        location: '',
+        location: {
+          name: '',
+          lat: '',
+          lng: ''
+        },
         date: '',
         time: '',
         endTime: ''
-      }
+      };
       $('.input').val('');
     };
 
+    // Get Database
     this.getDatabase = () => {
       this.allEvents = firebaseApi.getDatabase();
       this.allEvents.sort(this.compareEvents);
