@@ -76,14 +76,14 @@ angular.module('eventPlannerApp')
     } */
 
     //initialize Database
-    this.addElement = (name, location, date, time, endTime) => {
+    this.addElement = (name, location, startDate, endDate) => {
       let user = this.getCurrentUser();
       if (user) {
         this.database = firebase.database();
         console.log(this.database);
         console.log(user);
         //write data on database
-        this.setEvent(user.uid, user.displayName, name, location, date, time, endTime)
+        this.setEvent(user.uid, user.displayName, name, location, startDate, endDate)
           .then(console.log('database wrote successfully'))
           .catch((err) => {
             console.log('error database');
@@ -93,7 +93,7 @@ angular.module('eventPlannerApp')
     }
 
     //Write a new event
-    this.setEvent = (uid, author, name, location, date, time, endTime) => {
+    this.setEvent = (uid, author, name, location, startDate, endDate) => {
 
       // get a key for new event
       let newEventKey = firebase.database().ref().child('posts').push().key
@@ -103,9 +103,8 @@ angular.module('eventPlannerApp')
         author: author,
         name: name,
         location: location,
-        date: date,
-        time: time,
-        endTime: endTime,
+        startDate: startDate,
+        endDate: endDate,
         eventid: newEventKey
       };
 

@@ -13,21 +13,13 @@
                 <input id="event-location" class="input input-text" type="text" ng-model="events.ev.location.name"
                     placeholder="Location" name="location" required>
             </div>
-            <label class="sr-only" for="">Date:</label>
+            <label class="sr-only" for="">Start Date:</label>
             <div class="buttons-main text-container">
-                <input id="event-date" class="input input-text" type="date" ng-model="events.ev.date" required>
+                <input id="event-startDate" class="input input-text" type="datetime-local" ng-model="events.ev.startDate" required>
             </div>
-            <div class="flex">
-                <label class="push-center" for="appt-time">from:
-                    <div class="text-container buttons-small">
-                        <input class="input input-text-small" type="time" ng-model="events.ev.time" name="appt-time">
-                    </div>
-                </label>
-                <label class="push-center" for="appt-endTime">to:
-                    <div class="text-container buttons-small">
-                        <input class="input input-text-small" type="time" ng-model="events.ev.endTime" name="appt-endTime">
-                    </div>
-                </label>
+            <label class="sr-only" for="">End Date:</label>
+            <div class="buttons-main text-container">
+                <input id="event-endDate" class="input input-text" type="datetime-local" ng-model="events.ev.endDate" required>
             </div>
 
             <input class="invert-color buttons-main text-container" type="button" value="Add Event" ng-click="events.addEvent(); create = !create;">
@@ -54,10 +46,12 @@
                     <span class="location-name">{{event.location.name}}</span><span ng-click="events.showMaps(event.name, event.eventid, event.location.lat, event.location.lng)" class="fontawesome-map-marker location-marker"></span>
                 </div>
                 <div id="map-{{event.eventid}}" class="location-map not-show"></div>
-                <p>date:<br>{{event.date | date:'MM/dd/yyyy'}}<p>
-                        <span ng-show="event.time"> at: {{event.time | date:'h:mma'}}</span><span ng-show="event.endTime">
-                            until: {{event.endTime | date:'h:mma'}}</span>
-                    </p>
+                <p>Start at:
+                    <br>{{event.startDate | date: "MM/dd/yyyy 'at' h:mma"}}
+                </p>
+                <p>until:
+                    <br>{{event.endDate | date: "MM/dd/yyyy 'at' h:mma"}}
+                </p>
                     <p>Author:<br>{{event.author}}</p>
                 </p>
             </li>

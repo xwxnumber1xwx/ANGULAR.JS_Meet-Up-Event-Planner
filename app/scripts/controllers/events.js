@@ -25,9 +25,8 @@ angular.module('eventPlannerApp')
         lat: '',
         lng: ''
       },
-      date: '',
-      time: '',
-      endTime: ''
+      startDate: '',
+      endDate: ''
     };
 
     // initialize google maps
@@ -103,8 +102,8 @@ angular.module('eventPlannerApp')
     this.addEvent = () => {
       console.log('event');
       console.log(this.ev);
-      if (this.ev.name && this.ev.location && this.ev.date) {
-        firebaseApi.addElement(this.ev.name, this.ev.location, this.ev.date, this.ev.time, this.ev.endTime);
+      if (this.ev.name && this.ev.location && this.ev.startDate && this.ev.endDate) {
+        firebaseApi.addElement(this.ev.name, this.ev.location, this.ev.startDate, this.ev.endDate);
         this.clearInput();
       }
     };
@@ -118,9 +117,8 @@ angular.module('eventPlannerApp')
           lat: '',
           lng: ''
         },
-        date: '',
-        time: '',
-        endTime: ''
+        startDate: '',
+        endDate: ''
       };
       $('.input').val('');
     };
@@ -142,10 +140,10 @@ angular.module('eventPlannerApp')
 
     //Sort array of object
     this.compareEvents = (a, b) => {
-      if (a.date.valueOf() < b.date.valueOf()) {
+      if (a.startDate.valueOf() < b.startDate.valueOf()) {
         return -1;
       }
-      if (a.date.valueOf() > b.date.valueOf()) {
+      if (a.startDate.valueOf() > b.startDate.valueOf()) {
         return 1;
       }
       return 0;
@@ -154,7 +152,7 @@ angular.module('eventPlannerApp')
     //delete old Events
     this.checkOldEvents = () => {
       for (let i = this.allEvents.length - 1; i >= 0; i--) {
-        if (Date.parse(this.allEvents[i].date) < Date.now()) {
+        if (Date.parse(this.allEvents[i].endDate) < Date.now()) {
           console.log(`Event ${this.allEvents[i].name} was deleted because it has already passed`);
           this.deleteEvent(this.allEvents[i].eventid);
         }
