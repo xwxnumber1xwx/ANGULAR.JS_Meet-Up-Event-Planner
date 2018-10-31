@@ -4,7 +4,7 @@
 
 * [Overview](#overview)
 * [Installation](#installation)
-* [Build & development](#build)
+* [Build](#build)
 * [Testing](#testing)
 * [MIT License](#mit-license)
 
