@@ -8,11 +8,17 @@
  * Controller of the eventPlannerApp
  */
 angular.module('eventPlannerApp')
-  .controller('LoginCtrl', ['firebaseApi', function (firebaseApi) {
+  .controller('LoginCtrl', ['$scope', 'firebaseApi', function ($scope, firebaseApi) {
     this.email = '';
     this.password = '';
     this.user = {};
     this.displayName = '';
+    this.userLogged = false;
+
+    setTimeout(function () {
+      //focus for log in (Accessibility)
+      document.getElementById('login-email').focus();
+    }, 400);
 
     //check if user il logged
     this.getCurrentUser = () => {
@@ -22,6 +28,10 @@ angular.module('eventPlannerApp')
         // User is signed in.
         this.getUserInfo(user);
         this.loggedY();
+        this.userLogged = true;
+        setTimeout(function () {
+          $scope.$apply();
+        }, 300);
       }
     };
 
@@ -31,7 +41,11 @@ angular.module('eventPlannerApp')
         .then((response) => {
           if (response) {
             this.getUserInfo(response.user);
-            this.loggedY()
+            this.loggedY();
+            this.userLogged = true;
+            setTimeout(function () {
+              $scope.$apply();
+            }, 300);
           }
         })
     }
@@ -56,22 +70,30 @@ angular.module('eventPlannerApp')
           this.user = {};
           this.displayName = '';
           this.loggedN();
+          this.userLogged = false;
+          setTimeout(function () {
+            $scope.$apply();
+          }, 300);
         })
     };
 
     //toggle display element, only for logged users
     this.loggedY = () => {
       $('#events').removeClass('disabled');
-      $('#login').addClass('disabled');
-      $('#logged').removeClass('disabled');
       $('#signin').text('Log-Out');
       $('#signup').addClass('disabled');
+      setTimeout(function () {
+        //focus on user's information (Accessibility)
+        document.getElementById('user-info').focus();
+      }, 400);
     };
 
     this.loggedN = () => {
+      //focus for log in (Accessibility)
+      setTimeout(function () {
+        document.getElementById('login-email').focus();
+      }, 400);
       $('#events').addClass('disabled');
-      $('#login').removeClass('disabled');
-      $('#logged').addClass('disabled');
       $('#signin').text('Sign-In');
       $('#signup').removeClass('disabled');
     };

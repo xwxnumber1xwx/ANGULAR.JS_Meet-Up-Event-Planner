@@ -1,21 +1,21 @@
 <div ng-init="login.getCurrentUser()"></div>
-<section id="login">
+<section ng-show="!login.userLogged" id="login">
     <form class="main-title">
         <label for="login-email">Email</label><br>
         <div class="buttons-main text-container">
-            <input id="login-email" class="input-text" type="text" name="email" ng-model="login.email" required>
+            <input id="login-email" tabindex="1" class="input-text" type="text" name="email" ng-model="login.email" aria-label="Please insert your email" required>
         </div><br>
         <label for="login-pwd">Password</label><br>
         <div class="buttons-main text-container">
-            <input id="login-pwd" class="input-text" type="password" name="password" ng-model="login.password" required>
+            <input id="login-pwd" tabindex="2"  class="input-text" type="password" name="password" ng-model="login.password" aria-label="Please insert your password" required>
         </div><br>
-        <input class="invert-color buttons-main text-container" type="submit" value="Sign In" ng-click="login.logIn()">
+        <input class="invert-color buttons-main text-container" tabindex="3" type="submit" value="Sign In" aria-label="click to login" ng-click="login.logIn()">
     </form>
 </section>
-<section id="logged" class="disabled">
-    <div class="event-container invert-color text-container">
+<section ng-show="login.userLogged" id="logged">
+    <div id="user-info" tabindex="0" class="event-container invert-color text-container">
         <p id="username"></p>
     </div>
-    <input class="button-center buttons-main text-container invert-color" type="submit" ng-click="login.logOut()" value="Log-Out">
-    <input class="button-center buttons-main text-container invert-color" type="submit" ui-sref="events" id="signin-title" value ="Events">
+    <input class="button-center buttons-main text-container invert-color" type="submit" ng-click="login.logOut()" value="Log-Out" aria-label="click to log-out">
+    <input class="button-center buttons-main text-container invert-color" type="submit" ui-sref="events" id="signin-title" value ="Events" aria-label="click to show all events">
 </section>

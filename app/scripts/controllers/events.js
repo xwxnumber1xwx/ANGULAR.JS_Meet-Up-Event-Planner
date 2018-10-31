@@ -26,16 +26,9 @@ angular.module('eventPlannerApp')
         lng: ''
       },
       startDate: '',
-      endDate: ''
+      endDate: '',
+      text: ''
     };
-
-    // initialize google maps
-    /*     this.initMap = () => {
-            this.map = new google.maps.Map(document.querySelector('#map'), {
-              center: { lat: -34.397, lng: 150.644 },
-              zoom: 8
-            });
-        } */
 
     this.showMaps = (name, id, lat, lng) => {
       var myLatLng = { lat: lat, lng: lng };
@@ -53,8 +46,6 @@ angular.module('eventPlannerApp')
       setTimeout(() => {
         $(`#map-${id}`).toggleClass('not-show');
       }, 300);
-      //this.createMarker(lat,lng);
-      //$('#modal').toggleClass('not-show');
     };
 
     //add listener to Google Maps autocomplete
@@ -103,7 +94,7 @@ angular.module('eventPlannerApp')
       console.log('event');
       console.log(this.ev);
       if (this.ev.name && this.ev.location && this.ev.startDate && this.ev.endDate) {
-        firebaseApi.addElement(this.ev.name, this.ev.location, this.ev.startDate, this.ev.endDate);
+        firebaseApi.addElement(this.ev.name, this.ev.location, this.ev.startDate, this.ev.endDate, this.ev.text);
         this.clearInput();
       }
     };
@@ -118,7 +109,8 @@ angular.module('eventPlannerApp')
           lng: ''
         },
         startDate: '',
-        endDate: ''
+        endDate: '',
+        text: ''
       };
       $('.input').val('');
     };
@@ -167,6 +159,17 @@ angular.module('eventPlannerApp')
       this.checkOldEvents();
       this.allEvents.sort(this.compareEvents);
       $scope.$apply();
+      //focus to first element (accessibility)
+    document.getElementById('add-event-button').focus();
     }, 300);
+
+    locationInput.addEventListener('change', function(value) {
+      console.log('value');
+      console.log(value.target.value.length);
+      if (value.target.value.length > 24) {
+        locationInput.style.fontSize = "45%";
+      }
+    });
+    autosize(document.getElementsByClassName('resize'));
 
   }]);

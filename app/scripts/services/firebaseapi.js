@@ -40,50 +40,15 @@ angular.module('eventPlannerApp')
       return firebase.auth().signOut();
     }
 
-    /* //add listener if database change. Async function (return a Promise)
-    this.setAddListener = async () => {
-      const eventsArray = [];
-      await eventsRef.on('child_added', function (data) {
-        console.log('child_added')
-        console.log(data.val());
-        eventsArray.push(data.val());
-      });
-      return eventsArray;
-    }
-
-    this.setChangeListener = async () => {
-      let id = '';
-      await eventsRef.on('child_changed', function (data) {
-        console.log('child_changed')
-        console.log(data.val());
-        id = data.key;
-      });
-      return id;
-    }
-
-    this.setRemoveListener = async () => {
-      let id = [];
-      await eventsRef.on('child_removed', function (data) {
-        console.log('child_removed')
-        console.log(data.val());
-        console.log(data.key);
-        id.push(data.key);
-        console.log(id);
-      });
-      console.log('return');
-      console.log(id);
-      return id.pop();
-    } */
-
     //initialize Database
-    this.addElement = (name, location, startDate, endDate) => {
+    this.addElement = (name, location, startDate, endDate, text) => {
       let user = this.getCurrentUser();
       if (user) {
         this.database = firebase.database();
         console.log(this.database);
         console.log(user);
         //write data on database
-        this.setEvent(user.uid, user.displayName, name, location, startDate, endDate)
+        this.setEvent(user.uid, user.displayName, name, location, startDate, endDate, text)
           .then(console.log('database wrote successfully'))
           .catch((err) => {
             console.log('error database');
@@ -93,7 +58,7 @@ angular.module('eventPlannerApp')
     }
 
     //Write a new event
-    this.setEvent = (uid, author, name, location, startDate, endDate) => {
+    this.setEvent = (uid, author, name, location, startDate, endDate, text) => {
 
       // get a key for new event
       let newEventKey = firebase.database().ref().child('posts').push().key
@@ -105,6 +70,7 @@ angular.module('eventPlannerApp')
         location: location,
         startDate: startDate,
         endDate: endDate,
+        text: text,
         eventid: newEventKey
       };
 
