@@ -2,10 +2,10 @@
 
 ## Table of Contents
 
-* [Overview](##overview)
-* [Installation](##installation)
-* [Build & development](##Build-&-development)
-* [Testing](##testing)
+* [Overview](#overview)
+* [Installation](#installation)
+* [Build & development](#build-&-development)
+* [Testing](#testing)
 * [MIT License](#mit-license)
 
 ## Overview
