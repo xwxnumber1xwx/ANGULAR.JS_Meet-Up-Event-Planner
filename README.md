@@ -4,7 +4,7 @@
 
 * [Overview](#overview)
 * [Installation](#installation)
-* [Build & development](#build-&-development)
+* [Build & development](#build)
 * [Testing](#testing)
 * [MIT License](#mit-license)
 
@@ -25,7 +25,7 @@ For start the Web App you need to install the necessary module:
 $ npm install
 ```
 
-## Build & development
+## Build
 
 Run `grunt` for building and `grunt serve` for preview.
 
